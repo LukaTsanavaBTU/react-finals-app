@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+@theme {
+  --color-gold: #c28f2c;
+  --color-dark: #000405;
+  --color-light: #02171b;
+}
+
+:root {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
