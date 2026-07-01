@@ -1,8 +1,9 @@
 import useSWR, { type Fetcher } from "swr";
 import FavoriteEmptyIcon from "../assets/icons/favorite-empty.svg";
 import FavoriteFullIcon from "../assets/icons/favorite-full.svg";
-import useStorage from "../hooks/useStorage";
-import { useMemo } from "react";
+import useStorage from "../shared/hooks/useStorage";
+import { useMemo, useState } from "react";
+import CustomModal from "../shared/components/CustomModal";
 
 interface ChampionsDataReturnType {
   id: string;
@@ -27,6 +28,8 @@ const fetchChampionsData: Fetcher<
 };
 
 function ViewerPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedChampion, setSelectedChampion] = useState<string | null>(null);
   const { data, error, isLoading } = useSWR<
     Record<string, ChampionsDataReturnType>
   >("champions", fetchChampionsData);
@@ -44,10 +47,15 @@ function ViewerPage() {
     return arrayData;
   }, [favoritedChampions, data]);
 
-  function onChampionFavoriteClick(id: string) {
-    const champIndex = favoritedChampions.findIndex((item) => item === id);
+  function toggleChampionFavorite() {
+    if (!selectedChampion) {
+      return;
+    }
+    const champIndex = favoritedChampions.findIndex(
+      (item) => item === selectedChampion,
+    );
     if (champIndex === -1) {
-      setFavoritedChampions([...favoritedChampions, id]);
+      setFavoritedChampions([...favoritedChampions, selectedChampion]);
     } else {
       setFavoritedChampions(favoritedChampions.toSpliced(champIndex, 1));
     }
@@ -61,7 +69,8 @@ function ViewerPage() {
       key={champion.key}
       className="group cursor-pointer relative p-2 bg-dark-transparent rounded-xl flex flex-col items-center gap-3"
       onClick={() => {
-        onChampionFavoriteClick(champion.id);
+        setSelectedChampion(champion.id);
+        setIsModalOpen(true);
       }}
     >
       <img
@@ -84,9 +93,25 @@ function ViewerPage() {
   ));
 
   return (
-    <div className="w-3/4 grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
-      {data && championsContent}
-    </div>
+    <>
+      <div className="w-3/4 grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
+        {data && championsContent}
+      </div>
+      <CustomModal
+        isOpen={isModalOpen}
+        onClose={() => {
+          setSelectedChampion(null);
+          setIsModalOpen(false);
+        }}
+        onAccept={() => {
+          toggleChampionFavorite();
+          setSelectedChampion(null);
+          setIsModalOpen(false);
+        }}
+      >
+        <p>do you accept?</p>
+      </CustomModal>
+    </>
   );
 }
 
