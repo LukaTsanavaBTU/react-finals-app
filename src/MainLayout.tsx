@@ -1,5 +1,6 @@
 import { Link, Outlet } from "react-router-dom";
 import LolLogo from "./assets/images/lol-logo.png";
+import BackgroundImage from "./assets/images/background.jpg";
 
 export default function MainLayout() {
   return (
@@ -17,8 +18,14 @@ export default function MainLayout() {
           </ul>
         </nav>
       </header>
-      <main className="flex-1 bg-light">
-        <Outlet />
+      <main className="flex-1 bg-light relative flex flex-col min-h-0">
+        <div
+          style={{ backgroundImage: `url(${BackgroundImage})` }}
+          className="absolute inset-0 h-full w-full bg-cover bg-center bg-no-repeat opacity-10 z-0"
+        ></div>
+        <div className="z-10 relative flex flex-col p-4 items-center flex-1 overflow-y-auto">
+          <Outlet />
+        </div>
       </main>
     </div>
   );
