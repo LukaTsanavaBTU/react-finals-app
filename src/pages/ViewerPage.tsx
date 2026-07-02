@@ -115,16 +115,33 @@ function ViewerPage() {
             setSearchQuery(e.target.value);
           }}
           className="text-amber-100 text-xl bg-dark-transparent border-amber-100 border rounded-xl p-2 pr-10"
-        />{" "}
+        />
         <img
           src={SearchIcon}
           alt=""
           className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-auto"
         />
       </div>
-      <div className="w-3/4 grid grid-cols-[repeat(auto-fit,minmax(250px,300px))] gap-4 justify-center items-center">
-        {data && championsContent}
-      </div>
+      {searchedData?.length && (
+        <div className="w-3/4 grid grid-cols-[repeat(auto-fit,minmax(250px,300px))] gap-4 justify-center items-center">
+          {championsContent}
+        </div>
+      )}
+      {!searchedData?.length && (
+        <div className="rounded-2xl w-full flex justify-center">
+          <div className="flex flex-col items-center gap-4 p-4 bg-dark-transparent rounded-2xl">
+            <img
+              src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYXQ1cnplZnlsMjl5aGNpZjk5bmxiOWVoM290ano0bW90cmRxcXdxeiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/5Ay8TJlVmtWh6XYznJ/giphy.gif"
+              alt=""
+              className="h-40 w-auto select-none"
+              draggable="false"
+            />
+            <p className="text-amber-100 text-3xl select-none ">
+              No champions found...
+            </p>
+          </div>
+        </div>
+      )}
       {data && selectedChampion && (
         <CustomModal
           isOpen={isModalOpen}
@@ -145,7 +162,7 @@ function ViewerPage() {
               className="self-center h-32 w-auto"
             />
             <p>
-              Do you want change the favorite status for{" "}
+              Do you want to change the favorite status for{" "}
               {data[selectedChampion].name}?
             </p>
           </div>
