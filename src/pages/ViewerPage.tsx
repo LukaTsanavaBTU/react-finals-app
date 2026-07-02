@@ -35,7 +35,7 @@ function ViewerPage() {
       return dataWithFavorites;
     }
     return dataWithFavorites?.filter((champion) =>
-      champion.name.toLowerCase().includes(searchQuery),
+      champion.name.toLowerCase().includes(cleanedQuery),
     );
   }, [dataWithFavorites, searchQuery]);
 

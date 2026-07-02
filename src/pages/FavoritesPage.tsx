@@ -84,7 +84,7 @@ function FavoritesPage() {
           </p>
           <p>
             <span className="text-gold font-bold">Resource:</span>{" "}
-            {champion.partype}
+            {champion.partype}.
           </p>
           <div className="flex gap-4 items-center mt-10 justify-center md:justify-start">
             <div className="flex flex-col items-center" title="Attack">
