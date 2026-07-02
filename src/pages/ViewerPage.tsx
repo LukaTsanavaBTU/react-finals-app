@@ -30,7 +30,7 @@ function ViewerPage() {
   }, [favoritedChampions, data]);
 
   const searchedData = useMemo(() => {
-    const cleanedQuery = searchQuery.trim();
+    const cleanedQuery = searchQuery.trim().toLowerCase();
     if (!cleanedQuery) {
       return dataWithFavorites;
     }
