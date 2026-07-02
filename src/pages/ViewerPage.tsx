@@ -1,32 +1,12 @@
-import useSWR, { type Fetcher } from "swr";
+import { useMemo, useState } from "react";
+import useSWR from "swr";
 import FavoriteEmptyIcon from "../assets/icons/favorite-empty.svg";
 import FavoriteFullIcon from "../assets/icons/favorite-full.svg";
-import useStorage from "../shared/hooks/useStorage";
-import { useMemo, useState } from "react";
-import CustomModal from "../shared/components/CustomModal";
 import SearchIcon from "../assets/icons/search.svg";
-
-interface ChampionsDataReturnType {
-  id: string;
-  name: string;
-  title: string;
-  tags: string[];
-  image: { full: string };
-  favorite?: boolean;
-  key: string;
-}
-
-const fetchChampionsData: Fetcher<
-  Record<string, ChampionsDataReturnType>,
-  string
-> = async () => {
-  const res = await fetch(
-    "https://ddragon.leagueoflegends.com/cdn/13.1.1/data/en_US/champion.json",
-  );
-  if (!res.ok) throw new Error("Network error");
-  const jsonData = await res.json();
-  return jsonData.data;
-};
+import CustomModal from "../shared/components/CustomModal";
+import { fetchChampionsData } from "../shared/functions";
+import useStorage from "../shared/hooks/useStorage";
+import type { ChampionsDataReturnType } from "../shared/models";
 
 function ViewerPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);

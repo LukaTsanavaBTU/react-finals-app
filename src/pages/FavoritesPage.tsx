@@ -1,30 +1,14 @@
-import useSWR, { type Fetcher } from "swr";
-import UnfavoriteIcon from "../assets/icons/unfavorite.svg";
-import useStorage from "../shared/hooks/useStorage";
 import { useMemo, useState } from "react";
+import useSWR from "swr";
+import UnfavoriteIcon from "../assets/icons/unfavorite.svg";
 import CustomModal from "../shared/components/CustomModal";
-
-interface ChampionsDataReturnType {
-  id: string;
-  name: string;
-  title: string;
-  tags: string[];
-  image: { full: string };
-  favorite?: boolean;
-  key: string;
-}
-
-const fetchChampionsData: Fetcher<
-  Record<string, ChampionsDataReturnType>,
-  string
-> = async () => {
-  const res = await fetch(
-    "https://ddragon.leagueoflegends.com/cdn/13.1.1/data/en_US/champion.json",
-  );
-  if (!res.ok) throw new Error("Network error");
-  const jsonData = await res.json();
-  return jsonData.data;
-};
+import useStorage from "../shared/hooks/useStorage";
+import type { ChampionsDataReturnType } from "../shared/models";
+import { fetchChampionsData } from "../shared/functions";
+import AttackIcon from "../assets/icons/attack.svg";
+import MagicIcon from "../assets/icons/magic.svg";
+import DefenseIcon from "../assets/icons/defense.svg";
+import DifficultyIcon from "../assets/icons/difficulty.svg";
 
 function FavoritesPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -82,11 +66,64 @@ function FavoritesPage() {
         className="select-none"
         draggable="false"
       />
-      <p className="text-amber-100 font-semibold text-2xl select-none">
-        {champion.name}
-      </p>
+      <div className="flex-1 flex flex-col gap-4">
+        <div className="flex flex-col gap-2 text-gold ">
+          <p className="text-6xl font-bold">{champion.name}</p>
+          <p className="text-2xl font-semibold">{champion.title}</p>
+          <p className="text-amber-100 text-lg">
+            {champion.blurb.split(".").slice(0, -4).join(".")}.
+          </p>
+        </div>
+        <div className="w-full h-0.5 bg-amber-100 opacity-10"></div>
+        <div className="text-amber-100 text-2xl flex flex-col gap-2">
+          <p>
+            <span className="text-gold font-bold">Roles:</span>{" "}
+            {champion.tags.map((tag, index) =>
+              index === champion.tags.length - 1 ? `${tag}.` : `${tag},`,
+            )}
+          </p>
+          <p>
+            <span className="text-gold font-bold">Resource:</span>{" "}
+            {champion.partype}
+          </p>
+          <div className="flex gap-4 items-center mt-10">
+            <div className="flex flex-col items-center" title="Attack">
+              <img
+                src={AttackIcon}
+                alt="Attack"
+                className="filter-[brightness(0)saturate(100%)invert(55%)sepia(98%)saturate(337%)hue-rotate(1deg)brightness(88%)contrast(90%)] h-10 w-auto"
+              />
+              <p className="text-gold font-bold">{champion.info.attack}</p>
+            </div>
+            <div className="flex flex-col items-center" title="Defense">
+              <img
+                src={DefenseIcon}
+                alt="Defense"
+                className="filter-[brightness(0)saturate(100%)invert(55%)sepia(98%)saturate(337%)hue-rotate(1deg)brightness(88%)contrast(90%)] h-10 w-auto"
+              />
+              <p className="text-gold font-bold">{champion.info.defense}</p>
+            </div>
+            <div className="flex flex-col items-center" title="Magic">
+              <img
+                src={MagicIcon}
+                alt="Magic"
+                className="filter-[brightness(0)saturate(100%)invert(55%)sepia(98%)saturate(337%)hue-rotate(1deg)brightness(88%)contrast(90%)] h-10 w-auto"
+              />
+              <p className="text-gold font-bold">{champion.info.magic}</p>
+            </div>
+            <div className="flex flex-col items-center" title="Difficulty">
+              <img
+                src={DifficultyIcon}
+                alt="Difficulty"
+                className="filter-[brightness(0)saturate(100%)invert(55%)sepia(98%)saturate(337%)hue-rotate(1deg)brightness(88%)contrast(90%)] h-10 w-auto"
+              />
+              <p className="text-gold font-bold">{champion.info.difficulty}</p>
+            </div>
+          </div>
+        </div>
+      </div>
       <button className="hidden group-hover:block absolute top-4 right-4">
-        <img src={UnfavoriteIcon} alt="favorite" className="w-6 h-auto" />
+        <img src={UnfavoriteIcon} alt="favorite" className="w-12 h-auto" />
       </button>
     </div>
   ));
