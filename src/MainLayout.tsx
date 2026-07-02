@@ -5,17 +5,30 @@ import BackgroundImage from "./assets/images/background.jpg";
 export default function MainLayout() {
   return (
     <div className="h-screen flex flex-col">
-      <header className="p-6  bg-dark flex justify-between items-center">
-        <Link to="/" className="flex items-center gap-4">
+      <header className="bg-dark flex justify-between items-center">
+        <Link
+          to="/"
+          className="flex items-center gap-4 p-6 transition-all duration-200 ease-in hover:brightness-120"
+        >
           <img src={LolLogo} alt="" className="w-16 h-16" />
           <h1 className="text-gold font-bold text-4xl hidden lg:block">
             LoL Champion Viewer
           </h1>
         </Link>
-        <nav className="text-gold text-2xl">
-          <ul className="flex gap-2 items-center underline">
-            <Link to="/viewer">Viewer</Link>
-            <Link to="/favorites">Favorites</Link>
+        <nav className="text-gold text-2xl h-full mr-2">
+          <ul className="flex items-center font-bold h-full">
+            <Link
+              to="/viewer"
+              className="p-2 h-full flex items-center transition-all duration-200 ease-in hover:bg-gold hover:text-dark"
+            >
+              Viewer
+            </Link>
+            <Link
+              to="/favorites"
+              className="p-2 h-full flex items-center transition-all duration-200 ease-in hover:bg-gold hover:text-dark"
+            >
+              Favorites
+            </Link>
           </ul>
         </nav>
       </header>

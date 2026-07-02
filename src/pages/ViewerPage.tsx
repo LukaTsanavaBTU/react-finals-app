@@ -59,7 +59,8 @@ function ViewerPage() {
   const championsContent = searchedData?.map((champion) => (
     <div
       key={champion.key}
-      className="group cursor-pointer relative p-2 bg-dark-transparent rounded-xl flex flex-col items-center gap-3"
+      className="group cursor-pointer relative p-2 bg-dark-transparent rounded-xl flex flex-col items-center gap-3 shadow-md
+      transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl active:scale-95 active:shadow-sm"
       onClick={() => {
         setSelectedChampion(champion.id);
         setIsModalOpen(true);
@@ -74,7 +75,11 @@ function ViewerPage() {
       <p className="text-amber-100 font-semibold text-2xl select-none">
         {champion.name}
       </p>
-      <button className="hidden group-hover:block absolute top-4 right-4">
+      <button
+        style={{ opacity: champion.favorite ? "100" : "0" }}
+        className="opacity-0 absolute top-4 right-4
+        group-hover:opacity-100! transition-all duration-200 ease-in"
+      >
         <img
           src={champion.favorite ? FavoriteFullIcon : FavoriteEmptyIcon}
           alt="favorite"

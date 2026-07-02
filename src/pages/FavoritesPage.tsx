@@ -79,7 +79,7 @@ function FavoritesPage() {
           <p>
             <span className="text-gold font-bold">Roles:</span>{" "}
             {champion.tags.map((tag, index) =>
-              index === champion.tags.length - 1 ? `${tag}.` : `${tag},`,
+              index === champion.tags.length - 1 ? `${tag}.` : `${tag}, `,
             )}
           </p>
           <p>
@@ -122,7 +122,10 @@ function FavoritesPage() {
           </div>
         </div>
       </div>
-      <button className="hidden group-hover:block absolute top-4 right-4">
+      <button
+        className="opacity-0 absolute top-4 right-4
+        group-hover:opacity-100 transition-all duration-200 ease-in"
+      >
         <img src={UnfavoriteIcon} alt="favorite" className="w-12 h-auto" />
       </button>
     </div>

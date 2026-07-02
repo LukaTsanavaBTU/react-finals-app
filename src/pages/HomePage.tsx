@@ -18,7 +18,8 @@ function HomePage() {
           </p>
           <div className="flex flex-col gap-4 items-center">
             <button
-              className="rounded-2xl text-gold border border-gold bg-light text-2xl font-semibold p-4 hover:brightness-110"
+              className="rounded-2xl text-gold border border-gold bg-light text-2xl font-semibold p-4
+              transition duration-300 ease-out  hover:brightness-110 hover:-translate-y-1 active:translate-y-0 active:scale-95"
               onClick={() => {
                 navigate("/viewer");
               }}
@@ -26,7 +27,8 @@ function HomePage() {
               Browse <span className="hidden sm:inline">Champions</span>
             </button>
             <button
-              className="rounded-2xl text-light border border-light bg-gold text-2xl font-semibold p-4 hover:brightness-110"
+              className="rounded-2xl text-light border border-light bg-gold text-2xl font-semibold p-4
+              transition duration-300 ease-out  hover:brightness-110 hover:-translate-y-1 active:translate-y-0 active:scale-95"
               onClick={() => {
                 navigate("/favorites");
               }}

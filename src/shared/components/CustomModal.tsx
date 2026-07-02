@@ -35,13 +35,15 @@ function CustomModal({
         <div className="flex justify-center gap-4">
           <button
             onClick={onClose}
-            className="rounded-2xl text-gold border border-gold bg-light text-xl font-semibold p-2 hover:brightness-110"
+            className="rounded-2xl text-gold border border-gold bg-light text-xl font-semibold p-2
+            transition duration-300 ease-out  hover:brightness-110 hover:-translate-y-1 active:translate-y-0 active:scale-95"
           >
             Close
           </button>
           <button
             onClick={onAccept}
-            className="rounded-2xl text-light border border-light bg-gold text-xl font-semibold p-2 hover:brightness-110"
+            className="rounded-2xl text-light border border-light bg-gold text-xl font-semibold p-2
+            transition duration-300 ease-out  hover:brightness-110 hover:-translate-y-1 active:translate-y-0 active:scale-95"
           >
             Accept
           </button>
