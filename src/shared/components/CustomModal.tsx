@@ -28,22 +28,24 @@ function CustomModal({
     <dialog
       ref={dialogRef}
       onClose={onClose}
-      className="p-6 rounded-lg border-none shadow-lg backdrop:bg-black/50 max-w-md w-full"
+      className="p-6 border border-gold bg-light rounded-lg backdrop:bg-black/50 text-amber-100 text-xl  fixed inset-0 m-auto"
     >
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-8">
         {children}
-        <button
-          onClick={onClose}
-          className="self-end px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded text-sm"
-        >
-          Close
-        </button>
-        <button
-          onClick={onAccept}
-          className="self-end px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded text-sm"
-        >
-          Accept
-        </button>
+        <div className="flex justify-center gap-4">
+          <button
+            onClick={onClose}
+            className="rounded-2xl text-gold border border-gold bg-light text-xl font-semibold p-2 hover:brightness-110"
+          >
+            Close
+          </button>
+          <button
+            onClick={onAccept}
+            className="rounded-2xl text-light border border-light bg-gold text-xl font-semibold p-2 hover:brightness-110"
+          >
+            Accept
+          </button>
+        </div>
       </div>
     </dialog>
   );

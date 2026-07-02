@@ -88,7 +88,7 @@ function ViewerPage() {
       <img
         src={`https://ddragon.leagueoflegends.com/cdn/16.13.1/img/champion/${champion.image.full}`}
         alt=""
-        className="select-none"
+        className="select-none h-32 w-auto"
         draggable="false"
       />
       <p className="text-amber-100 font-semibold text-2xl select-none">
@@ -125,20 +125,32 @@ function ViewerPage() {
       <div className="w-3/4 grid grid-cols-[repeat(auto-fit,minmax(250px,300px))] gap-4 justify-center items-center">
         {data && championsContent}
       </div>
-      <CustomModal
-        isOpen={isModalOpen}
-        onClose={() => {
-          setSelectedChampion(null);
-          setIsModalOpen(false);
-        }}
-        onAccept={() => {
-          toggleChampionFavorite();
-          setSelectedChampion(null);
-          setIsModalOpen(false);
-        }}
-      >
-        <p>do you accept?</p>
-      </CustomModal>
+      {data && selectedChampion && (
+        <CustomModal
+          isOpen={isModalOpen}
+          onClose={() => {
+            setSelectedChampion(null);
+            setIsModalOpen(false);
+          }}
+          onAccept={() => {
+            toggleChampionFavorite();
+            setSelectedChampion(null);
+            setIsModalOpen(false);
+          }}
+        >
+          <div className="flex flex-col gap-4">
+            <img
+              src={`https://ddragon.leagueoflegends.com/cdn/16.13.1/img/champion/${data[selectedChampion].image.full}`}
+              alt=""
+              className="self-center h-32 w-auto"
+            />
+            <p>
+              Do you want change the favorite status for{" "}
+              {data[selectedChampion].name}?
+            </p>
+          </div>
+        </CustomModal>
+      )}
     </>
   );
 }
