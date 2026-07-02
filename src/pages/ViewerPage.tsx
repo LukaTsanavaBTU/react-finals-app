@@ -4,6 +4,7 @@ import FavoriteFullIcon from "../assets/icons/favorite-full.svg";
 import useStorage from "../shared/hooks/useStorage";
 import { useMemo, useState } from "react";
 import CustomModal from "../shared/components/CustomModal";
+import SearchIcon from "../assets/icons/search.svg";
 
 interface ChampionsDataReturnType {
   id: string;
@@ -30,6 +31,7 @@ const fetchChampionsData: Fetcher<
 function ViewerPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedChampion, setSelectedChampion] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const { data, error, isLoading } = useSWR<
     Record<string, ChampionsDataReturnType>
   >("champions", fetchChampionsData);
@@ -46,6 +48,16 @@ function ViewerPage() {
     const arrayData = Object.values(newData);
     return arrayData;
   }, [favoritedChampions, data]);
+
+  const searchedData = useMemo(() => {
+    const cleanedQuery = searchQuery.trim();
+    if (!cleanedQuery) {
+      return dataWithFavorites;
+    }
+    return dataWithFavorites?.filter((champion) =>
+      champion.name.toLowerCase().includes(searchQuery),
+    );
+  }, [dataWithFavorites, searchQuery]);
 
   function toggleChampionFavorite() {
     if (!selectedChampion) {
@@ -64,7 +76,7 @@ function ViewerPage() {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading profile</div>;
 
-  const championsContent = dataWithFavorites?.map((champion) => (
+  const championsContent = searchedData?.map((champion) => (
     <div
       key={champion.key}
       className="group cursor-pointer relative p-2 bg-dark-transparent rounded-xl flex flex-col items-center gap-3"
@@ -94,7 +106,23 @@ function ViewerPage() {
 
   return (
     <>
-      <div className="w-3/4 grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
+      <div className="relative mb-4">
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchQuery}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+          }}
+          className="text-amber-100 text-xl bg-dark-transparent border-amber-100 border rounded-xl p-2 pr-10"
+        />{" "}
+        <img
+          src={SearchIcon}
+          alt=""
+          className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-auto"
+        />
+      </div>
+      <div className="w-3/4 grid grid-cols-[repeat(auto-fit,minmax(250px,300px))] gap-4 justify-center items-center">
         {data && championsContent}
       </div>
       <CustomModal

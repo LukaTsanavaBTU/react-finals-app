@@ -2,7 +2,7 @@ import { createHashRouter } from "react-router-dom";
 import MainLayout from "./MainLayout";
 import HomePage from "./pages/HomePage";
 import ViewerPage from "./pages/ViewerPage";
-import RandomPage from "./pages/RandomPage";
+import FavoritesPage from "./pages/FavoritesPage";
 
 export const router = createHashRouter([
   {
@@ -18,8 +18,8 @@ export const router = createHashRouter([
         element: <ViewerPage />,
       },
       {
-        path: "random",
-        element: <RandomPage />,
+        path: "favorites",
+        element: <FavoritesPage />,
       },
     ],
   },

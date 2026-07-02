@@ -14,7 +14,7 @@ export default function MainLayout() {
           <ul className="flex gap-2 items-center underline">
             <Link to="/">Home</Link>
             <Link to="/viewer">Viewer</Link>
-            <Link to="/random">Random</Link>
+            <Link to="/favorites">Favorites</Link>
           </ul>
         </nav>
       </header>
